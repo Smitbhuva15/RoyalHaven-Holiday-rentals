@@ -9,13 +9,14 @@ import { Input } from '@/components/ui/input'
 import { redirect, useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
-import { Loader2 } from 'lucide-react';
+import { Eye, EyeIcon, EyeOff, Loader2 } from 'lucide-react';
 
 
 
 export default function Login() {
     const routes = useRouter()
     const [loading, setLoading] = useState(false);
+    const[showPassword,setShowPassword]=useState(false)
 
     const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
     const onSubmit = async (data) => {
@@ -25,7 +26,7 @@ export default function Login() {
             password: data.password,
             redirect: false
         })
-
+        console.log(signinData)
 
         if (!signinData.ok) {
             toast.error("Invaild Password or Email !!")
@@ -33,7 +34,7 @@ export default function Login() {
         }
         else {
             toast.success("user Login SuccessFully!!")
-             setLoading(false)
+            setLoading(false)
             setTimeout(() => {
                 routes.push('/')
             }, 1000);
@@ -64,18 +65,26 @@ export default function Login() {
 
                     </span>
                 </div>
-                <div className="mt-5">
+                <div className="mt-5 relative">
                     <Label htmlFor="password">Password</Label>
-                    <Input
-                        placeholder="Enter your password"
-                        type="password"
-                        id="password"
-                        className="mt-2"
-                        {...register("password", { required: "password is required" })}
-                    />
-                    <span className="text-red-400 mt-1">
-                        {errors.password && <p>{errors.password?.message}</p>}
-                    </span>
+                    <div className="relative">
+                        <Input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Enter your password"
+                            id="password"
+                            className="mt-2 pr-10"
+                            {...register("password", { required: "Password is required" })}
+                        />
+                        
+                        <button
+                            type="button"
+                            onClick={()=>{setShowPassword(!showPassword)}}
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                        >
+                            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
+                    </div>
+                    {errors.password && <span className="text-red-400 mt-1">{errors.password.message}</span>}
                 </div>
 
                 <div className="mt-5">

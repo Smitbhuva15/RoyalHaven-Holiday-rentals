@@ -24,6 +24,7 @@ export async function POST(req) {
     }
 
     const { email, userName, password } = body
+  
 
     const isEmailExist = await prisma.user.findUnique({
       where: { email },

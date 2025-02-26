@@ -7,15 +7,17 @@ import { useRouter } from 'next/navigation';
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import Link from 'next/link';
-import { Loader2 } from 'lucide-react';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
 
 
 export default function SignUp() {
     const routes = useRouter()
     const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
+    const[showPassword,setShowPassword]=useState(false)
     const [loading, setLoading] = useState(false);
     const onSubmit = async (data) => {
 
+       
         try {
             setLoading(true)
             const res = await fetch('/api/user', {
@@ -80,22 +82,27 @@ export default function SignUp() {
                         className="mt-2"
                         {...register("email")}
                     />
-                    <span className="text-red-400">
-
-                    </span>
+                   
                 </div>
-                <div className="mt-5">
+                <div className="mt-5 relative">
                     <Label htmlFor="password">Password</Label>
-                    <Input
-                        placeholder="Enter your password"
-                        type="password"
-                        id="password"
-                        className="mt-2"
-                        {...register("password")}
-                    />
-                    <span className="text-red-400">
-
-                    </span>
+                    <div className="relative">
+                        <Input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Enter your password"
+                            id="password"
+                            className="mt-2 pr-10"
+                        />
+                        
+                        <button
+                            type="button"
+                            onClick={()=>{setShowPassword(!showPassword)}}
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                        >
+                            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
+                    </div>
+                   
                 </div>
 
                 <div className="mt-5">

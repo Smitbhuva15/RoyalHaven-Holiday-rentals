@@ -26,11 +26,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
 
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}  >
-        <AuthProvider>{children}</AuthProvider>
-        <Toaster
-          position="top-right"
-          reverseOrder={false}
-        />
+        <AuthProvider>
+          {children}
+          <Toaster
+            position="top-right"
+            reverseOrder={false}
+          />
+        </AuthProvider>
       </body>
 
     </html>

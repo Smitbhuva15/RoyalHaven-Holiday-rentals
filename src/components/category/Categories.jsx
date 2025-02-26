@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 export default function Categories() {
     return (
-        <div className="flex items-center space-x-8 px-10 my-3 overflow-x-auto whitespace-nowrap scroll-smooth pb-4">
+        <div className="flex items-center space-x-10 px-10 my-3 overflow-x-auto whitespace-nowrap scroll-smooth pb-4">
             {categories.map((item) => (
                 <div
                     className="flex justify-center flex-col items-center cursor-pointer "
