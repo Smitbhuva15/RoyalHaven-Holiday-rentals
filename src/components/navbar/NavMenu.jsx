@@ -2,30 +2,29 @@
 
 import React from 'react'
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-  } from "@/components/ui/popover"
-import { Input } from '../ui/input'
-import { Label } from '../ui/label'
-import { Button } from '../ui/button'
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 import { MenuIcon } from 'lucide-react'
-import Login from '../Auth/Login'
-import Signup from '../Auth/Signup'
-   
+import { useRouter } from 'next/navigation';
+
 
 export default function NavMenu() {
+  const routes = useRouter()
   return (
     <Popover>
-    <PopoverTrigger asChild>
-    <MenuIcon className="cursor-pointer" />
-    </PopoverTrigger>
-    <PopoverContent className="mr-6 ">
-    <ui>
-        <Login />
-        <Signup />
-    </ui>
-    </PopoverContent>
-  </Popover>
+      <PopoverTrigger asChild>
+        <MenuIcon className="cursor-pointer" />
+      </PopoverTrigger>
+      <PopoverContent className="mr-6 ">
+        <li className="mb-2 hover:bg-gray-200 rounded-md p-2 cursor-pointer" onClick={() => routes.push('/auth/login')} >
+          Login
+        </li>
+        <li className="mb-2 hover:bg-gray-200 rounded-md p-2 cursor-pointer" onClick={() => routes.push('/auth/singup')} >
+          SignUp
+        </li>
+      </PopoverContent>
+    </Popover>
   )
 }
