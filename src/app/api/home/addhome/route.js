@@ -6,14 +6,15 @@ export async function POST(req) {
 
     try {
         const { title, country, state, city, price, image_url, description, categories, userId } = await req.json();
-
+        // console.log(title, country, state, city, price, image_url, description, categories, userId)
+   const newprice=Number(price)
         const newhome = await prisma.home.create({
             data: {
                 title,
                 country,
                 state,
                 city,
-                price,
+                price:newprice,
                 image_url,
                 description,
                 categories,

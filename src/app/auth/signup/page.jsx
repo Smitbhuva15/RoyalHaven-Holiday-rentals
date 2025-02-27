@@ -13,11 +13,11 @@ import { Eye, EyeOff, Loader2 } from 'lucide-react';
 export default function SignUp() {
     const routes = useRouter()
     const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
-    const[showPassword,setShowPassword]=useState(false)
+    const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false);
     const onSubmit = async (data) => {
 
-       
+
         try {
             setLoading(true)
             const res = await fetch('/api/user', {
@@ -32,9 +32,7 @@ export default function SignUp() {
                 const resmessage = await res.json();
                 toast.success(resmessage.message);
                 reset()
-                setTimeout(() => {
-                    routes.push('/auth/login')
-                }, 1000);
+                routes.push('/auth/login')
             }
             else {
                 const errmessage = await res.json();
@@ -82,7 +80,7 @@ export default function SignUp() {
                         className="mt-2"
                         {...register("email")}
                     />
-                   
+
                 </div>
                 <div className="mt-5 relative">
                     <Label htmlFor="password">Password</Label>
@@ -92,17 +90,19 @@ export default function SignUp() {
                             placeholder="Enter your password"
                             id="password"
                             className="mt-2 pr-10"
+                            {...register("password")}
+
                         />
-                        
+
                         <button
                             type="button"
-                            onClick={()=>{setShowPassword(!showPassword)}}
+                            onClick={() => { setShowPassword(!showPassword) }}
                             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
                         >
                             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                         </button>
                     </div>
-                   
+
                 </div>
 
                 <div className="mt-5">

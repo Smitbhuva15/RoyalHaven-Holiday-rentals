@@ -35,10 +35,8 @@ export default function Login() {
         else {
             toast.success("user Login SuccessFully!!")
             setLoading(false)
-            setTimeout(() => {
-                routes.push('/')
-            }, 1000);
             reset()
+            routes.push('/')
         }
 
 

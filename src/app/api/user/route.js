@@ -14,7 +14,7 @@ export async function POST(req) {
   try {
 
     const body = await req.json();
-
+    
     const validation = userSchema.safeParse(body);
     if (!validation.success) {
       return NextResponse.json(
