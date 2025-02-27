@@ -9,6 +9,8 @@ import HomeCart from "@/components/addhome/HomeCart";
 
 
 const getAllHome = async () => {
+  
+
   try {
     const res = await fetch('http://localhost:3000/api/home/allhome', { cache: 'no-store' });
 
