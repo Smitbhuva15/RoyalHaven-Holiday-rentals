@@ -28,18 +28,42 @@ export default function NavMenu() {
         {
           session !== null ?
             (
-              <li className="mb-2 hover:bg-gray-200 rounded-md p-2 cursor-pointer" onClick={() => signOut()} >
-                Signout
-              </li>
+
+
+              <ul className="list-none space-y-2">
+                <li
+                  className="p-2  pl-4  rounded-md cursor-pointer  bg-gray-100 hover:bg-gray-300 transition duration-200"
+                  onClick={() => routes.push('/dashboard')}
+                >
+                  dashboard
+                </li>
+                <li
+                  className="p-2 pl-4 rounded-md cursor-pointer bg-gray-100 hover:bg-gray-300 transition duration-200"
+                  onClick={() => signOut()}
+                >
+                  Signout
+                </li>
+                
+              </ul>
+
             )
             :
             (<>
-              <li className="mb-2 hover:bg-gray-200 rounded-md p-2 cursor-pointer" onClick={() => routes.push('/auth/login')} >
-                SignIn
-              </li>
-              <li className="mb-2 hover:bg-gray-200 rounded-md p-2 cursor-pointer" onClick={() => routes.push('/auth/signup')} >
-                SignUp
-              </li>
+              <ul className="list-none space-y-2">
+                <li
+                  className="p-2  pl-4  rounded-md cursor-pointer bg-gray-100 hover:bg-gray-300 transition duration-200"
+                  onClick={() => routes.push('/auth/login')}
+                >
+                  Sign In
+                </li>
+                <li
+                  className="p-2  pl-4 rounded-md cursor-pointer bg-gray-100 hover:bg-gray-300 transition duration-200"
+                  onClick={() => routes.push('/auth/signup')}
+                >
+                  Sign Up
+                </li>
+              </ul>
+
             </>
             )
         }
