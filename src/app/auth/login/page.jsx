@@ -26,7 +26,7 @@ export default function Login() {
             password: data.password,
             redirect: false
         })
-        console.log(signinData)
+
 
         if (!signinData.ok) {
             toast.error("Invaild Password or Email !!")

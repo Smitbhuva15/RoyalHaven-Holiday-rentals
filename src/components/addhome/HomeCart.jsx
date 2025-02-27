@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function HomeCart({home}) {
   return (
-    <Link href={`/`}>
+    <Link href={`/Home/${home.id}`}>
          <div className="text-start">
          <Image
           src={home?.image_url}

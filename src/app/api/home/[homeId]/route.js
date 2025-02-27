@@ -20,3 +20,37 @@ export async function DELETE(req,{params}) {
         return NextResponse.json({ message: "Internal server error" }, { status: 500 });
     }
 }
+
+export async function GET(req,{params}) {
+   const homeId=params.homeId;
+
+    try {
+     
+        const home=await prisma.home.findUnique({
+            where:{
+                id:homeId
+            },
+            include:{
+                user:true
+            }
+        })
+
+   
+
+     if(!home){
+        return NextResponse.json({ message: "Home not getting SuccessFully!!" ,
+        }, { status: 400 });
+     }
+
+     return NextResponse.json({ message: "Home getting SuccessFully!!" ,
+        home:home 
+    }, { status: 200 });
+
+
+    } catch (error) {
+        console.error("Error creating user:", error);
+        return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    }
+}
+
+
