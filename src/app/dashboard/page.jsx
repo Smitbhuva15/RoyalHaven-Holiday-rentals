@@ -35,7 +35,7 @@ export default function DashBoard() {
             <NavBar />
             {
                 isLoading ? (
-                    <div className="fixed inset-0 flex justify-center items-center bg-white z-50">
+                    <div className="fixed inset-0 flex justify-center items-center  z-50">
                         <Loader2 className="h-9 w-9 animate-spin text-gray-500" />
                     </div>
 
@@ -48,9 +48,10 @@ export default function DashBoard() {
                                         <TableCaption>Your added Airbnb Homes.</TableCaption>
                                         <TableHeader>
                                             <TableRow>
-                                                <TableHead>Country</TableHead>
-                                                <TableHead>City</TableHead>
+                                                
                                                 <TableHead>Title</TableHead>
+                                                <TableHead>City</TableHead>
+                                                <TableHead>Country</TableHead>
                                                 <TableHead>Image</TableHead>
                                                 <TableHead>Price</TableHead>
                                                 <TableHead>Action</TableHead>
@@ -60,9 +61,11 @@ export default function DashBoard() {
                                         <TableBody>
                                             {data?.user?.homes.map((home) => (
                                                 <TableRow key={home?.id}>
-                                                    <TableCell >{home?.country}</TableCell>
-                                                    <TableCell>{home?.city}</TableCell>
+                                                   
                                                     <TableCell>{home?.title}</TableCell>
+                                                    <TableCell>{home?.city}</TableCell>
+                                                    <TableCell >{home?.country}</TableCell>
+                                                   
                                                     <TableCell>
                                                         <Image
                                                             src={home?.image_url}
