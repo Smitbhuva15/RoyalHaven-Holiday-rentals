@@ -40,7 +40,7 @@ export default async function Home({searchParams}) {
   }
 
   return (
-    <div>
+    <div className="mb-10">
       <NavBar />
       <Categories />
 

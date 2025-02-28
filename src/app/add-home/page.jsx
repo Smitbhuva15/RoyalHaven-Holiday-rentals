@@ -11,13 +11,13 @@ export default function page() {
             <div className="container mt-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 place-items-center md:gap-2 gap-4">
                     <div>
-                        <h1 className="text-brand font-bold text-7xl">Airbnb it</h1>
-                        <h1 className="text-black font-semibold text-3xl mb-3">
+                        <h1 className="text-brand font-bold sm:text-7xl text-5xl">Airbnb it</h1>
+                        <h1 className="text-black font-semibold sm:text-3xl text-xl mb-3">
                             You could earn
                         </h1>
                         <div className="flex space-x-4 items-center">
                             <Counter />
-                            <strong className="text-3xl">per night</strong>
+                            <strong className="sm:text-3xl text-xl">per night</strong>
                         </div>
                         <div className="hidden md:grid grid-cols-2 gap-2 mt-5">
                             <Image
