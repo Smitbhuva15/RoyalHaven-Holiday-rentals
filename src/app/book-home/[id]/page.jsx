@@ -3,30 +3,35 @@ import NavBar from '@/components/navbar/NavBar'
 import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import useSWR from 'swr';
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+
 import { Button } from '@/components/ui/button';
+import DatePicker from '../DatePicker';
+import PaymentTabel from '../PaymentTabel';
+
 
 
 export default function page() {
   const params = useParams()
   const id = params.id
-
-
   const fetcher = (...args) => fetch(...args).then(res => res.json())
 
   const { data, error, isLoading } = useSWR(`/api/home/${id}`, fetcher)
   console.log(data?.home)
+
+  const [dateDifference,setDateDifference]=useState()
+  const [totalBeforeDiscount,setTotalBeforeDiscount]=useState(data?.home?.price)
+  const [discount,setDiscount]=useState(0)
+  const [total,setTotal]=useState(0)
+
+
+  const daydifferencevalue=(value)=>{
+     setDateDifference(value+1)
+     setTotalBeforeDiscount(data?.home?.price*(value+1))
+     setDiscount(Math.floor((data?.home?.price*(value+1))*0.075))
+     setTotal((data?.home?.price*(value+1))-(Math.floor((data?.home?.price*(value+1))*0.075)))
+    }
 
   return (
     <div>
@@ -47,6 +52,7 @@ export default function page() {
                 <div className='md:text-5xl font-bold text-brand text-center text-3xl'>
                   Select date
                 </div>
+                <DatePicker daydifferencevalue={daydifferencevalue}/>
               </div>
               {/* right side */}
 
@@ -60,49 +66,12 @@ export default function page() {
                     unoptimized
                   />
                 </div>
-                <div className='mt-5'>
-                  <Table>
-                    <TableCaption>Final Pricing for Your Booking</TableCaption>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead colSpan={3}>Cost Breakdown</TableHead>
-                        <TableHead className="text-right">Amount</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
 
-                      <TableRow >
-                        <TableCell className="font-medium" colSpan={3}>Base Price (Per Night)</TableCell>
-                        <TableCell className="text-right">invoice.totalAmount</TableCell>
-                      </TableRow>
-
-                      <TableRow >
-                        <TableCell className="font-medium" colSpan={3}>Stay Duration</TableCell>
-                        <TableCell className="text-right">5 Nights</TableCell>
-                      </TableRow>
-
-                      <TableRow >
-                        <TableCell className="font-medium" colSpan={3}>Total Before Discount</TableCell>
-                        <TableCell className="text-right">$500.00</TableCell>
-                      </TableRow>
-
-                      <TableRow >
-                        <TableCell className=" font-medium" colSpan={3}>Discount</TableCell>
-                        <TableCell className="text-right">-$50.00</TableCell>
-                      </TableRow>
-
-                    </TableBody>
-                    <TableFooter>
-                      <TableRow>
-                        <TableCell colSpan={3} className='font-bold'>Final Payment</TableCell>
-                        <TableCell className="text-right font-bold">$2,500.00</TableCell>
-                      </TableRow>
-                    </TableFooter>
-                  </Table>
-                </div>
+                <PaymentTabel dateDifference={dateDifference} totalBeforeDiscount={totalBeforeDiscount} discount={discount} total={total} 
+                baseprice={data?.home?.price}/>
 
                 <div className='flex justify-center pt-4'>
-                  <Button className='bg-brand px-16'>
+                  <Button className='bg-brand px-16' onClick={handlePayment}>
                     Pay Now
                   </Button>
                 </div>
