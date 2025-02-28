@@ -95,7 +95,7 @@ export default function AddHomeForm() {
         // console.log(resmessage)
         toast.success(resmessage.message)
         reset()
-        routes.push('/')
+        routes.push('/dashboard/')
       }
       else {
         const errmessage = await res.json()

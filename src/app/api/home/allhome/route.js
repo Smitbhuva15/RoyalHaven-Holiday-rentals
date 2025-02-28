@@ -20,6 +20,9 @@ export async function GET(request) {
             where:whereCondition,
             include: {
                 user:true
+            },
+            orderBy:{
+                createdAt:'desc'
             }
         });
 
