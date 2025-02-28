@@ -8,11 +8,12 @@ import HomeCart from "@/components/addhome/HomeCart";
 
 
 
-const getAllHome = async () => {
+
+const getAllHome = async (country,categories) => {
   
 
   try {
-    const res = await fetch('http://localhost:3000/api/home/allhome', { cache: 'no-store' });
+    const res = await fetch(`http://localhost:3000/api/home/allhome?country=${country}&categories=${categories}`, { cache: 'no-store' });
 
     if (!res.ok) {
       return "Failed to fetch data";
@@ -25,11 +26,14 @@ const getAllHome = async () => {
   }
 };
 
-export default async function Home() {
+export default async function Home({searchParams}) {
 
+  const country= searchParams.country;
+  const categories=searchParams.categories
+  
   var loading = true;
 
-  const data = await getAllHome();
+  const data = await getAllHome(country,categories);
 
   if (data.homes) {
     loading = false

@@ -48,7 +48,7 @@ export default function DashBoard() {
                                         <TableCaption>Your added Airbnb Homes.</TableCaption>
                                         <TableHeader>
                                             <TableRow>
-                                                
+
                                                 <TableHead>Title</TableHead>
                                                 <TableHead>City</TableHead>
                                                 <TableHead>Country</TableHead>
@@ -61,11 +61,11 @@ export default function DashBoard() {
                                         <TableBody>
                                             {data?.user?.homes.map((home) => (
                                                 <TableRow key={home?.id}>
-                                                   
+
                                                     <TableCell>{home?.title}</TableCell>
                                                     <TableCell>{home?.city}</TableCell>
                                                     <TableCell >{home?.country}</TableCell>
-                                                   
+
                                                     <TableCell>
                                                         <Image
                                                             src={home?.image_url}
@@ -79,7 +79,7 @@ export default function DashBoard() {
                                                     <TableCell>
                                                         <div className='flex items-center space-x-2 '>
                                                             <DeleteIconBtn id={home?.id} userId={userId} />
-                                                            <Link href=''>
+                                                            <Link href={`/Home/${home?.id}`}>
                                                                 <Button size="icon" className="bg-slate-600 rounded-full ml-2 ">
                                                                     <Eye />
                                                                 </Button>

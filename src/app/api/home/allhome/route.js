@@ -1,10 +1,23 @@
 import prisma from '@/lib/db';
 import { NextResponse } from 'next/server';
 
-export async function GET() {
+export async function GET(request) {
+
+   const searchParams = request.nextUrl.searchParams;
+   
+   const query1=searchParams.get("country") || null;
+   const query2 =searchParams.get("categories") || null; 
+   
+    const whereCondition= query1 && query1 !== "undefined" || query2 && query2 !== "undefined"   ? {
+        OR: [
+            {  country: { contains: query1, mode: "insensitive" } },
+            { categories: { hasSome: [query2] } } 
+          ]
+    }:{}
 
     try {
         const allHomes = await prisma.home.findMany({
+            where:whereCondition,
             include: {
                 user:true
             }
