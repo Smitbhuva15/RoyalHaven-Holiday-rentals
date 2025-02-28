@@ -9,6 +9,7 @@ import useSWR from 'swr';
 import { Button } from '@/components/ui/button';
 import DatePicker from '../DatePicker';
 import PaymentTabel from '../PaymentTabel';
+import toast from 'react-hot-toast';
 
 
 
@@ -18,7 +19,7 @@ export default function page() {
   const fetcher = (...args) => fetch(...args).then(res => res.json())
 
   const { data, error, isLoading } = useSWR(`/api/home/${id}`, fetcher)
-  console.log(data?.home)
+  
 
   const [dateDifference,setDateDifference]=useState()
   const [totalBeforeDiscount,setTotalBeforeDiscount]=useState(data?.home?.price)
@@ -26,11 +27,95 @@ export default function page() {
   const [total,setTotal]=useState(0)
 
 
+
+
   const daydifferencevalue=(value)=>{
      setDateDifference(value+1)
      setTotalBeforeDiscount(data?.home?.price*(value+1))
      setDiscount(Math.floor((data?.home?.price*(value+1))*0.075))
      setTotal((data?.home?.price*(value+1))-(Math.floor((data?.home?.price*(value+1))*0.075)))
+    }
+
+
+
+    const loadRazorpayScript = () => {
+      return new Promise((resolve) => {
+        if (window.Razorpay) {
+          resolve(true);
+          return;
+        }
+    
+        const script = document.createElement("script");
+        script.src = "https://checkout.razorpay.com/v1/checkout.js";
+        script.onload = () => {
+          resolve(true);
+        };
+        script.onerror = () => {
+          resolve(false);
+        };
+        document.body.appendChild(script);
+      });
+    };
+
+    const handlePayment=async(total)=>{
+
+      const r1 = await loadRazorpayScript();
+
+      if (!r1) {
+        toast.error("Failed to load Razorpay. Check your internet connection.");
+        return;
+      }
+
+     try {
+     
+      const res=await fetch(`/api/create-order`,{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({amount:total})
+      })
+
+      if(res.ok){
+
+        const data=await res.json();
+        const order=data.order;
+
+  
+
+        const options = {
+          key: process.env.NEXT_PUBLIC_PAYMENT_KEY_ID, 
+          amount: order.amount,
+          currency: "INR",
+          name: "Airbnb",
+          description: "Booking Your House Confirm!!",
+          order_id: order.id,
+          handler: function (response) {
+            toast.success("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+          },
+          prefill: {
+            name: "smit bhuva",
+            email: "smitbhuva@gmail.com",
+            contact: "9316088896",
+          },
+          theme: {
+            color: "#3399cc",
+          },
+        };
+
+        const razorpay = new window.Razorpay(options);
+        razorpay.open();
+
+
+      }
+      else{
+        const errmessage=await res.json();
+        console.log(errmessage)
+      }
+
+     } catch (error) {
+       console.log("client side payment internal server error",error)
+     }
     }
 
   return (
@@ -71,7 +156,7 @@ export default function page() {
                 baseprice={data?.home?.price}/>
 
                 <div className='flex justify-center pt-4'>
-                  <Button className='bg-brand px-16' onClick={handlePayment}>
+                  <Button className='bg-brand px-16' onClick={()=>{handlePayment(total)}}>
                     Pay Now
                   </Button>
                 </div>
