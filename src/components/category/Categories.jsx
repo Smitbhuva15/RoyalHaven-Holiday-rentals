@@ -1,11 +1,13 @@
 import React from 'react'
 import { categories } from '@/config/categories'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Categories() {
     return (
         <div className="flex items-center space-x-10 px-10 my-3 overflow-x-auto whitespace-nowrap scroll-smooth pb-4">
             {categories.map((item) => (
+                <Link href={`/search-home/${item.name}`}>
                 <div
                     className="flex justify-center flex-col items-center cursor-pointer "
                     key={item.name}
@@ -18,6 +20,7 @@ export default function Categories() {
                         {item.name}
                     </span>
                 </div>
+                </Link>
             ))}
         </div>
     )

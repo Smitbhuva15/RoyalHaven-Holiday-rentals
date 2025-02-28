@@ -8,7 +8,6 @@ export async function GET(request, { params }) {
         return NextResponse.json({ message: "Query parameter is required" }, { status: 400 });
     }
 
-    console.log(query, "queryyyyyyyyyyy");
 
     try {
         const homes = await prisma.home.findMany({
