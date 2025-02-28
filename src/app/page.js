@@ -30,7 +30,6 @@ export default async function Home() {
   var loading = true;
 
   const data = await getAllHome();
-  console.log(data.homes)
 
   if (data.homes) {
     loading = false

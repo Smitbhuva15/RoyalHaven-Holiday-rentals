@@ -1,4 +1,5 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 import {
     Sheet,
     SheetClose,
@@ -16,8 +17,21 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import SearchNavbar from './SearchNavbar'
 import DatePicker from './DatePicker'
+import { useRouter } from 'next/navigation'
 
 export default function SearchSheet() {
+    const router=useRouter()
+
+    const [query,setQuery]=useState("")
+   const Searchvalue=(value)=>{
+      setQuery(value)
+   }
+
+  const handelsubmit=()=>{
+    console.log("runnnnnnnn")
+      router.push(`/search-home/${query}`)
+  }
+
     return (
         <div>
             <Sheet>
@@ -46,9 +60,21 @@ export default function SearchSheet() {
                 <SheetContent side="top" className="text-center">
                     <SheetHeader>
                         <div className='mt-7 md:mt-1'>
-                            <SearchNavbar />
+                            <SearchNavbar  Searchvalue={Searchvalue}/>
                         </div>
 
+                        <SheetDescription asChild>
+                            <div className="flex justify-center items-center flex-col">
+
+
+                                <div className="flex w-1/3 lg:ml-36 sm:ml-24 justify-between items-center mt-5">
+                                    <Button className="bg-brand" onClick={handelsubmit}>
+                                        Search
+                                    </Button>
+
+                                </div>
+                            </div>
+                        </SheetDescription>
 
                     </SheetHeader>
                 </SheetContent>
