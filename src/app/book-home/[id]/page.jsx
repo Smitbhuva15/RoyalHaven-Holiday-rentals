@@ -2,7 +2,7 @@
 import NavBar from '@/components/navbar/NavBar'
 import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import useSWR from 'swr';
 
@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import DatePicker from '../DatePicker';
 import PaymentTabel from '../PaymentTabel';
 import toast from 'react-hot-toast';
+import { useSession } from 'next-auth/react';
 
 
 
@@ -19,6 +20,28 @@ export default function page() {
   const fetcher = (...args) => fetch(...args).then(res => res.json())
 
   const { data, error, isLoading } = useSWR(`/api/home/${id}`, fetcher)
+ 
+
+  const {data:session,status}=useSession();
+  
+    const routes=useRouter()
+  
+     useEffect(()=>{
+       if(status==='unauthenticated'){
+          routes.push('/auth/login')
+       }
+  
+     },[status,routes])
+  
+     
+     if (status === "loading") return (
+      <div className="fixed inset-0 flex justify-center items-center z-50">
+          <Loader2 className="h-9 w-9 animate-spin text-gray-500" />
+      </div>
+  )
+  
+     if(status==='unauthenticated') return null
+ 
   
 
   const [dateDifference,setDateDifference]=useState()
@@ -92,11 +115,12 @@ export default function page() {
           order_id: order.id,
           handler: function (response) {
             toast.success("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+          
           },
           prefill: {
-            name: "smit bhuva",
-            email: "smitbhuva@gmail.com",
-            contact: "9316088896",
+            name: `${session?.user?.name}`,
+            email: `${session?.user?.email}`,
+            contact: "9358965812",
           },
           theme: {
             color: "#3399cc",

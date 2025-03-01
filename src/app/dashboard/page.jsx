@@ -3,7 +3,7 @@ import NavBar from '@/components/navbar/NavBar'
 import { DeleteIcon, Eye, Loader2, Trash } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import React from 'react'
+import React, { useEffect } from 'react'
 import useSWR from 'swr';
 import {
     Table,
@@ -23,12 +23,30 @@ import DeleteIconBtn from '@/components/dashboard/DeleteIconBtn';
 export default function DashBoard() {
 
     const routes = useRouter()
-    const { data: session } = useSession()
+    const {data:session,status}=useSession();
     const userId = session?.user?.id
 
     const fetcher = (...args) => fetch(...args).then(res => res.json())
 
     const { data, error, isLoading } = useSWR(`/api/user/${userId}`, fetcher)
+
+
+    
+       useEffect(()=>{
+         if(status==='unauthenticated'){
+            routes.push('/auth/login')
+         }
+    
+       },[status,routes])
+    
+       
+       if (status === "loading") return (
+        <div className="fixed inset-0 flex justify-center items-center z-50">
+            <Loader2 className="h-9 w-9 animate-spin text-gray-500" />
+        </div>
+    )
+    
+       if(status==='unauthenticated') return null
 
     return (
         <div>

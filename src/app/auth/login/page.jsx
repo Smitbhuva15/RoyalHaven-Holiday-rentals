@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { useForm } from "react-hook-form";
 import { Button } from '@/components/ui/button'
@@ -7,18 +7,42 @@ import SocialAuth from '@/components/Auth/SocialAuth'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { redirect, useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Eye, EyeIcon, EyeOff, Loader2 } from 'lucide-react';
 
 
 
-export default function Login() {
-    const routes = useRouter()
-    const [loading, setLoading] = useState(false);
-    const[showPassword,setShowPassword]=useState(false)
 
+export default function Login() {
+    const router = useRouter();
     const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
+
+    const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+
+
+    const { data: session, status } = useSession();
+
+
+    useEffect(() => {
+        if (status === "authenticated") {
+            router.push("/");
+        }
+    }, [status, router]);
+
+
+    if (status === "loading") return (
+        <div className="fixed inset-0 flex justify-center items-center z-50">
+            <Loader2 className="h-9 w-9 animate-spin text-gray-500" />
+        </div>
+    )
+
+
+    if (status === "authenticated") return null;
+
+
+
     const onSubmit = async (data) => {
         setLoading(true)
         const signinData = await signIn("credentials", {
@@ -36,15 +60,13 @@ export default function Login() {
             toast.success("user Login SuccessFully!!")
             setLoading(false)
             reset()
-            routes.push('/')
+            router.push('/')
         }
 
 
     }
 
     return (
-
-
         <div className='md:max-w-xl mx-auto mt-36 w-[90%]  '>
             <form onSubmit={handleSubmit(onSubmit)} >
                 <h1 className="text-lg font-bold">Welcome to Airbnb</h1>
@@ -73,10 +95,10 @@ export default function Login() {
                             className="mt-2 pr-10"
                             {...register("password", { required: "Password is required" })}
                         />
-                        
+
                         <button
                             type="button"
-                            onClick={()=>{setShowPassword(!showPassword)}}
+                            onClick={() => { setShowPassword(!showPassword) }}
                             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
                         >
                             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -103,6 +125,6 @@ export default function Login() {
                 </div>
             </form>
             <span className='text-sm'>Don't have an account? <Link href="/auth/signup" className='text-blue-600'>Signup</Link></span>
-        </div>
-    )
+        </div>)
+
 }

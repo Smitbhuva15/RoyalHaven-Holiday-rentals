@@ -38,6 +38,7 @@ export default function DatePicker({daydifferencevalue}) {
           ranges={date}
           direction="horizontal"
           onChange={handelDateChanges}
+          minDate={new Date()} 
         />
       </div>
     </div>

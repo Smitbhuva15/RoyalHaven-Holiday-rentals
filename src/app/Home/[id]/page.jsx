@@ -10,7 +10,6 @@ import useSWR from 'swr';
 
 export default function Home() {
 
-  const [home, setHome] = useState();
   const { id } = useParams()
 
   const fetcher = (...args) => fetch(...args).then(res => res.json())
@@ -31,8 +30,8 @@ export default function Home() {
           : (
             <div className="container mt-5">
               <div>
-                <h1 className="text-2xl font-bold">{data?.home?.title}</h1>
-                <p>
+                <h1 className="text-2xl font-bold capitalize">{data?.home?.title}</h1>
+                <p className='capitalize'>
                   {data?.home?.city}, {data?.home?.state}, {data?.home?.country}
                 </p>
               </div>
@@ -49,12 +48,12 @@ export default function Home() {
                 Hosted By {data?.home?.user?.userName}
               </h1>
 
-              <h1 className="text-xl font-semibold">
+              <h1 className="text-xl font-semibold capitalize">
                 {data?.home?.title} in {data?.home?.city}, {data?.home?.state}, {data?.home?.country}
               </h1>
 
               <div
-                className="mt-5"
+                className="mt-5 "
                 dangerouslySetInnerHTML={{
                   __html: data?.home?.description,
                 }}

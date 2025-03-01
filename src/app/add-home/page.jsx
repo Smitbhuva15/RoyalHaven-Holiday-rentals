@@ -1,10 +1,36 @@
+"use client"
 import NavBar from '@/components/navbar/NavBar'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Counter from '@/components/addhome/Counter'
 import Image from 'next/image'
 import AddHomeForm from './AddHomeForm'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { Loader2 } from 'lucide-react'
 
 export default function page() {
+
+  const {data:session,status}=useSession();
+
+  const routes=useRouter()
+
+   useEffect(()=>{
+     if(status==='unauthenticated'){
+        routes.push('/auth/login')
+     }
+
+   },[status,routes])
+
+   
+   if (status === "loading") return (
+    <div className="fixed inset-0 flex justify-center items-center z-50">
+        <Loader2 className="h-9 w-9 animate-spin text-gray-500" />
+    </div>
+)
+
+   if(status==='unauthenticated') return null
+
+
     return (
         <div>
             <NavBar />
