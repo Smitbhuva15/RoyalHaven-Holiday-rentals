@@ -6,6 +6,7 @@ import { Search } from 'lucide-react'
 import MoblieMenu from './MoblieMenu'
 import SearchSheet from '../searchnav/SearchSheet'
 import Image from 'next/image'
+import { Button } from '../ui/button'
 
 
 export default function NavBar() {
@@ -17,17 +18,21 @@ export default function NavBar() {
                 </div>
                 <div className='w-full md:w-auto'>
                     <div>
-                        <div className='ml-3 my-2 md:hidden flex justify-between w-[90%]'>
+                        <div className='ml-3  md:hidden flex justify-between w-[90%]'>
                             <Link href='/'>
-                            <Image src="/images/logo-sm.png" 
-                             alt='logo'
-                            width={80} 
-                            height={60}
-                             /> 
+                                <Image src="/images/royal-logo4.png"
+                                    alt='logo'
+                                    width={80}
+                                    height={60}
+                                    className='sm:ml-5 sm:w-28 w-20'
+                                />
                             </Link>
-                            <div className='mt-3 flex'>
+                            <div className='mt-5 flex'>
                                 <Link href="/add-home " className="text-sm font-semibold mr-3">
-                                    Add your home
+                                    <Button className='bg-brand '>
+                                        Add your home
+                                    </Button>
+
                                 </Link>
                                 < NavMenu />
                             </div>
@@ -40,7 +45,9 @@ export default function NavBar() {
 
                 <div className="hidden md:flex justify-center items-center space-x-4">
                     <Link href="/add-home" className="text-sm font-semibold">
-                        Add your home
+                    <Button className='bg-brand lg:px-16 px-10'>
+                                        Add your home
+                                    </Button>
                     </Link>
                     <NavMenu />
                 </div>

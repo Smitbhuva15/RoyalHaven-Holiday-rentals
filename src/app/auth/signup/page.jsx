@@ -66,7 +66,7 @@ export default function SignUp() {
                 }
             }
         } catch (error) {
-            console.log(error);
+       
             toast.error("Internal Server Error ")
         }
         finally {
@@ -88,7 +88,7 @@ export default function SignUp() {
             (
                 <div className='md:max-w-xl mx-auto mt-36 w-[90%]'>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <h1 className="text-lg font-bold">Welcome to Airbnb</h1>
+                        <h1 className="text-lg font-bold">Welcome to Royal Haven</h1>
                         <div className="mt-5">
                             <Label htmlFor="name">UserName</Label>
                             <Input

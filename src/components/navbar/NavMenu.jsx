@@ -14,10 +14,7 @@ import { signOut, useSession } from 'next-auth/react';
 export default function NavMenu() {
   const { data: session, status } = useSession();
   const routes = useRouter()
-  useEffect(() => {
-    console.log("Session status:", status);
-    console.log("Session data:", session);
-  }, [session, status]);
+
   return (
     <Popover>
       <PopoverTrigger asChild>

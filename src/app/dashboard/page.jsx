@@ -63,7 +63,7 @@ export default function DashBoard() {
                             (
                                 <div className="container mt-5">
                                     <Table >
-                                        <TableCaption>Your added Airbnb Homes.</TableCaption>
+                                        <TableCaption>Your added Royal Homes.</TableCaption>
                                         <TableHeader>
                                             <TableRow>
 

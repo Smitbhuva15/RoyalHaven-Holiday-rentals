@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import useSWR from 'swr';
-
 import { Button } from '@/components/ui/button';
 import DatePicker from '../DatePicker';
 import PaymentTabel from '../PaymentTabel';
@@ -20,102 +19,99 @@ export default function page() {
   const fetcher = (...args) => fetch(...args).then(res => res.json())
 
   const { data, error, isLoading } = useSWR(`/api/home/${id}`, fetcher)
- 
-
-  const {data:session,status}=useSession();
-  
-    const routes=useRouter()
-  
-     useEffect(()=>{
-       if(status==='unauthenticated'){
-          routes.push('/auth/login')
-       }
-  
-     },[status,routes])
-  
-     
-     if (status === "loading") return (
-      <div className="fixed inset-0 flex justify-center items-center z-50">
-          <Loader2 className="h-9 w-9 animate-spin text-gray-500" />
-      </div>
-  )
-  
-     if(status==='unauthenticated') return null
- 
-  
-
-  const [dateDifference,setDateDifference]=useState()
-  const [totalBeforeDiscount,setTotalBeforeDiscount]=useState(data?.home?.price)
-  const [discount,setDiscount]=useState(0)
-  const [total,setTotal]=useState(0)
 
 
+  const { data: session, status } = useSession();
+
+  const routes = useRouter()
+
+  const [dateDifference, setDateDifference] = useState()
+  const [totalBeforeDiscount, setTotalBeforeDiscount] = useState(data?.home?.price)
+  const [discount, setDiscount] = useState(0)
+  const [total, setTotal] = useState(0)
 
 
-  const daydifferencevalue=(value)=>{
-     setDateDifference(value+1)
-     setTotalBeforeDiscount(data?.home?.price*(value+1))
-     setDiscount(Math.floor((data?.home?.price*(value+1))*0.075))
-     setTotal((data?.home?.price*(value+1))-(Math.floor((data?.home?.price*(value+1))*0.075)))
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      routes.push('/auth/login')
     }
 
+  }, [status, routes])
 
 
-    const loadRazorpayScript = () => {
-      return new Promise((resolve) => {
-        if (window.Razorpay) {
-          resolve(true);
-          return;
-        }
-    
-        const script = document.createElement("script");
-        script.src = "https://checkout.razorpay.com/v1/checkout.js";
-        script.onload = () => {
-          resolve(true);
-        };
-        script.onerror = () => {
-          resolve(false);
-        };
-        document.body.appendChild(script);
-      });
-    };
+  if (status === "loading") return (
+    <div className="fixed inset-0 flex justify-center items-center z-50">
+      <Loader2 className="h-9 w-9 animate-spin text-gray-500" />
+    </div>
+  )
 
-    const handlePayment=async(total)=>{
+  if (status === 'unauthenticated') return null
 
-      const r1 = await loadRazorpayScript();
 
-      if (!r1) {
-        toast.error("Failed to load Razorpay. Check your internet connection.");
+  const daydifferencevalue = (value) => {
+    setDateDifference(value + 1)
+    setTotalBeforeDiscount(data?.home?.price * (value + 1))
+    setDiscount(Math.floor((data?.home?.price * (value + 1)) * 0.075))
+    setTotal((data?.home?.price * (value + 1)) - (Math.floor((data?.home?.price * (value + 1)) * 0.075)))
+  }
+
+
+
+  const loadRazorpayScript = () => {
+    return new Promise((resolve) => {
+      if (window.Razorpay) {
+        resolve(true);
         return;
       }
 
-     try {
-     
-      const res=await fetch(`/api/create-order`,{
-        method:'POST',
-        headers:{
-          'Content-Type':'application/json'
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  };
+
+  const handlePayment = async (total) => {
+
+    const r1 = await loadRazorpayScript();
+
+    if (!r1) {
+      toast.error("Failed to load Razorpay. Check your internet connection.");
+      return;
+    }
+
+    try {
+
+      const res = await fetch(`/api/create-order`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
         },
-        body:JSON.stringify({amount:total})
+        body: JSON.stringify({ amount: total })
       })
 
-      if(res.ok){
+      if (res.ok) {
 
-        const data=await res.json();
-        const order=data.order;
+        const data = await res.json();
+        const order = data.order;
 
-  
+
 
         const options = {
-          key: process.env.NEXT_PUBLIC_PAYMENT_KEY_ID, 
+          key: process.env.NEXT_PUBLIC_PAYMENT_KEY_ID,
           amount: order.amount,
           currency: "INR",
-          name: "Airbnb",
+          name: "Royal Haven",
           description: "Booking Your House Confirm!!",
           order_id: order.id,
           handler: function (response) {
             toast.success("Payment Successful! Payment ID: " + response.razorpay_payment_id);
-          
+
           },
           prefill: {
             name: `${session?.user?.name}`,
@@ -132,15 +128,15 @@ export default function page() {
 
 
       }
-      else{
-        const errmessage=await res.json();
+      else {
+        const errmessage = await res.json();
         console.log(errmessage)
       }
 
-     } catch (error) {
-       console.log("client side payment internal server error",error)
-     }
+    } catch (error) {
+      console.log("client side payment internal server error", error)
     }
+  }
 
   return (
     <div>
@@ -157,11 +153,11 @@ export default function page() {
           (
             <div className='flex container mt-6 justify-around md:flex-row flex-col'>
               {/* left side */}
-              <div className='md:w-1/2 mb-10'>
+              <div className='md:w-1/2 '>
                 <div className='md:text-5xl font-bold text-brand text-center text-3xl'>
                   Select date
                 </div>
-                <DatePicker daydifferencevalue={daydifferencevalue}/>
+                <DatePicker daydifferencevalue={daydifferencevalue} />
               </div>
               {/* right side */}
 
@@ -176,11 +172,11 @@ export default function page() {
                   />
                 </div>
 
-                <PaymentTabel dateDifference={dateDifference} totalBeforeDiscount={totalBeforeDiscount} discount={discount} total={total} 
-                baseprice={data?.home?.price}/>
+                <PaymentTabel dateDifference={dateDifference} totalBeforeDiscount={totalBeforeDiscount} discount={discount} total={total}
+                  baseprice={data?.home?.price} />
 
                 <div className='flex justify-center pt-4'>
-                  <Button className='bg-brand px-16' onClick={()=>{handlePayment(total)}}>
+                  <Button className='bg-brand px-16' onClick={() => { handlePayment(total) }}>
                     Pay Now
                   </Button>
                 </div>

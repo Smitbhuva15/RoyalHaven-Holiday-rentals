@@ -26,7 +26,7 @@ export default function DeleteIconBtn({id,userId}) {
             method:'DELETE'
         })
         if(res.ok){
-            console.log('Home successfully Deleted!!')
+            
             mutate(`/api/user/${userId}`)
         }
         else{

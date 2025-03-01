@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { useForm } from "react-hook-form";
 import { Button } from '@/components/ui/button'
-import SocialAuth from '@/components/Auth/SocialAuth'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { redirect, useRouter } from 'next/navigation';
@@ -69,7 +68,7 @@ export default function Login() {
     return (
         <div className='md:max-w-xl mx-auto mt-36 w-[90%]  '>
             <form onSubmit={handleSubmit(onSubmit)} >
-                <h1 className="text-lg font-bold">Welcome to Airbnb</h1>
+                <h1 className="text-lg font-bold">Welcome to Royal Haven</h1>
 
                 <div className="mt-5">
                     <Label htmlFor="email" >Email</Label>

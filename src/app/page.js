@@ -56,7 +56,7 @@ export default async function Home({searchParams}) {
           (
             data?.homes.length > 0 ?
               (
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5 px-10">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 px-10">
                   {data?.homes.map((item) => (
                     <HomeCart home={item} key={item.id} />
                   ))
@@ -66,7 +66,7 @@ export default async function Home({searchParams}) {
               :
               (
                 <div className="text-center mt-4">
-                  <h1 className="text-brand font-bold text-2xl">No Airbnb found!</h1>
+                  <h1 className="text-brand font-bold text-2xl">No Royal Haven found!</h1>
                 </div>
               )
 
