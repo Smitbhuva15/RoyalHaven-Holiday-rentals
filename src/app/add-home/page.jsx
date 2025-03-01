@@ -47,18 +47,18 @@ export default function page() {
                         </div>
                         <div className="hidden md:grid grid-cols-2 gap-2 mt-5">
                             <Image
-                                src="/images/home_img.jpeg"
+                                src="/images/pic-1.jpg"
                                 width={200}
                                 height={200}
                                 alt="home"
-                                className="rounded-2xl object-cover"
+                                className="rounded-2xl object-cover h-96"
                             />
                             <Image
-                                src="/images/home_img1.jpeg"
+                                src="/images/pic-2.jpg"
                                 width={205}
-                                height={205}
+                                height={170}
                                 alt="home"
-                                className="rounded-2xl object-cover"
+                                className="rounded-2xl object-cover h-96"
                             />
                         </div>
                     </div>
