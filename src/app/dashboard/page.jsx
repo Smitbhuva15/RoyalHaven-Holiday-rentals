@@ -63,7 +63,7 @@ export default function DashBoard() {
                             (
                                 <div className="container mt-5">
                                     <Table >
-                                        <TableCaption>Your added Royal Homes.</TableCaption>
+                                        <TableCaption className='mb-4'>Your added Royal Homes.</TableCaption>
                                         <TableHeader>
                                             <TableRow>
 
@@ -93,7 +93,7 @@ export default function DashBoard() {
                                                             className="rounded-full w-10 h-10"
                                                         />
                                                     </TableCell>
-                                                    <TableCell>{home?.price}</TableCell>
+                                                    <TableCell>₹{home?.price}</TableCell>
                                                     <TableCell>
                                                         <div className='flex items-center space-x-2 '>
                                                             <DeleteIconBtn id={home?.id} userId={userId} />

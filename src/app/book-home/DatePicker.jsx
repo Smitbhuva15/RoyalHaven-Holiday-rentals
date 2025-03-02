@@ -23,8 +23,9 @@ export default function DatePicker({ daydifferencevalue }) {
 
   useEffect(() => {
     if (date[0]?.startDate && date[0]?.endDate) {
+     
       const difference = differenceInDays(date[0].endDate, date[0].startDate);
-      daydifferencevalue(difference)
+      daydifferencevalue(difference,date[0]?.startDate,date[0]?.endDate)
     }
   }, [date])
 

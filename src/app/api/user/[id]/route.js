@@ -12,8 +12,19 @@ export async function GET(req, { params }) {
                 id
             },
             include: {
-                homes: true
-            }
+                homes: {
+                    orderBy:{
+                        createdAt:'desc'
+                    }
+                },
+                orders:{
+                    orderBy:{
+                        createdAt:'desc'
+                    }
+                }
+            },
+            
+            
         })
     
 

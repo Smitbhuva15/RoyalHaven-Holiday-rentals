@@ -15,7 +15,7 @@ export default function PaymentTabel({dateDifference,totalBeforeDiscount,total,d
   return (
     <div className='mt-5'>
                   <Table>
-                    <TableCaption>Final Pricing for Your Booking</TableCaption>
+                    <TableCaption className='mb-4'>Final Pricing for Your Booking</TableCaption>
                     <TableHeader>
                       <TableRow>
                         <TableHead colSpan={3}>Cost Breakdown</TableHead>

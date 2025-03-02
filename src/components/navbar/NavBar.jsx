@@ -2,7 +2,7 @@ import React from 'react'
 import BrandLogo from './BrandLogo'
 import Link from 'next/link'
 import NavMenu from './NavMenu'
-import { Search } from 'lucide-react'
+import { ListOrderedIcon, Search } from 'lucide-react'
 import MoblieMenu from './MoblieMenu'
 import SearchSheet from '../searchnav/SearchSheet'
 import Image from 'next/image'
@@ -45,9 +45,9 @@ export default function NavBar() {
 
                 <div className="hidden md:flex justify-center items-center space-x-4">
                     <Link href="/add-home" className="text-sm font-semibold">
-                    <Button className='bg-brand lg:px-16 px-10'>
-                                        Add your home
-                                    </Button>
+                        <Button className='bg-brand lg:px-16 px-10'>
+                            Add your home
+                        </Button>
                     </Link>
                     <NavMenu />
                 </div>

@@ -19,7 +19,8 @@ export default function page() {
   const fetcher = (...args) => fetch(...args).then(res => res.json())
 
   const { data, error, isLoading } = useSWR(`/api/home/${id}`, fetcher)
-
+   
+  
 
   const { data: session, status } = useSession();
 
@@ -29,7 +30,10 @@ export default function page() {
   const [totalBeforeDiscount, setTotalBeforeDiscount] = useState(data?.home?.price)
   const [discount, setDiscount] = useState(0)
   const [total, setTotal] = useState(0)
+  const[startDate,setStartDate]=useState()
+  const[endDate,setEndDate]=useState()
 
+  
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -47,14 +51,61 @@ export default function page() {
 
   if (status === 'unauthenticated') return null
 
-
-  const daydifferencevalue = (value) => {
+  
+  const daydifferencevalue = (value,starting,ending) => {
+    setStartDate(starting)
+    setEndDate(ending)
     setDateDifference(value + 1)
     setTotalBeforeDiscount(data?.home?.price * (value + 1))
     setDiscount(Math.floor((data?.home?.price * (value + 1)) * 0.075))
     setTotal((data?.home?.price * (value + 1)) - (Math.floor((data?.home?.price * (value + 1)) * 0.075)))
   }
 
+  const  handelorder=async(response,orderId,amount)=>{
+    
+    const date1 = new Date(startDate);
+    const date2 = new Date(endDate);
+    const  starting_date = date1.toISOString();
+    const  ending_date = date2.toISOString();
+    console.log(starting_date,ending_date)
+
+    const obj1={
+      place:data?.home?.image_url,
+      amount:amount/100 ,
+      starting_date:starting_date,
+      ending_date:ending_date,
+      userId:data?.home?.user?.id,
+      orderId:response?.razorpay_order_id
+
+    }
+
+    try {
+      const res=await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/book-order`,{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+
+        },
+        body:JSON.stringify(obj1)
+      })
+      
+      if(res.ok){
+        console.log("order success!!")
+      }
+      else{
+        console.log("order is unsuccess!!")
+      }
+
+      
+    } catch (error) {
+      console.log(error,"error found")
+    }
+
+
+
+   
+
+  }
 
 
   const loadRazorpayScript = () => {
@@ -111,6 +162,8 @@ export default function page() {
           order_id: order.id,
           image: `/images/royal-logo4.png`,
           handler: function (response) {
+            handelorder(response,order.id,order.amount)
+            routes.push('/confirm-order');
             toast.success("Payment Successful! Payment ID: " + response.razorpay_payment_id);
 
           },

@@ -18,9 +18,10 @@ model User {
   email     String   @unique
   userName  String   @unique
   password  String
-  homes      Home[]
+  homes     Home[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  orders     Order[]
 }
 
 model Home {
@@ -37,4 +38,17 @@ model Home {
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model Order {
+  id            String   @id @default(uuid())
+  place         String
+  amount        String
+  starting_date DateTime
+  ending_date   DateTime
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orderId       String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }

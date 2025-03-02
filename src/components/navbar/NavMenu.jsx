@@ -35,6 +35,12 @@ export default function NavMenu() {
                   dashboard
                 </li>
                 <li
+                  className="p-2  pl-4  rounded-md cursor-pointer  bg-gray-100 hover:bg-gray-300 transition duration-200"
+                  onClick={() => routes.push('/confirm-order')}
+                >
+                  Confirmed Bookings
+                </li>
+                <li
                   className="p-2 pl-4 rounded-md cursor-pointer bg-gray-100 hover:bg-gray-300 transition duration-200"
                   onClick={() => signOut()}
                 >
