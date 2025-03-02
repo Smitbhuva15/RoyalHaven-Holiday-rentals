@@ -109,6 +109,7 @@ export default function page() {
           name: "Royal Haven",
           description: "Booking Your House Confirm!!",
           order_id: order.id,
+          image: `/images/royal-logo4.png`,
           handler: function (response) {
             toast.success("Payment Successful! Payment ID: " + response.razorpay_payment_id);
 

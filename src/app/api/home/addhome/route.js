@@ -8,6 +8,11 @@ export async function POST(req) {
         const { title, country, state, city, price, image_url, description, categories, userId } = await req.json();
         // console.log(title, country, state, city, price, image_url, description, categories, userId)
    const newprice=Number(price)
+
+   if(!categories,!image_url){
+    return NextResponse.json({ message: "Please fill all fields!!" }, { status: 400 });
+
+   }
         const newhome = await prisma.home.create({
             data: {
                 title,
