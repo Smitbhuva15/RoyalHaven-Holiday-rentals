@@ -13,7 +13,7 @@ const getAllHome = async (country,categories) => {
   
 
   try {
-    const res = await fetch(`http://localhost:3000/api/home/allhome?country=${country}&categories=${categories}`, { cache: 'no-store' });
+    const res = await fetch(`${process.env.SERVER_URL}/api/home/allhome?country=${country}&categories=${categories}`, { cache: 'no-store' });
 
     if (!res.ok) {
       return "Failed to fetch data";
