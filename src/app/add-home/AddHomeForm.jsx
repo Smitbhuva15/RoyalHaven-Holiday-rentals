@@ -46,11 +46,11 @@ export default function AddHomeForm() {
   const onSubmit = async (data) => {
     // console.log(data.country , "data")
     if (data.categories === false || data.categories.length === 0) {
-      toast.error("Please select at least one category")
+     return toast.error("Please select at least one category")
     }
 
     if (data.image.length === 0) {
-      toast.error("Image is required")
+     return toast.error("Image is required")
 
     }
     setLoading(true)

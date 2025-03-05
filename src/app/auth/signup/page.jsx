@@ -48,12 +48,13 @@ export default function SignUp() {
                 },
                 body: JSON.stringify(data)
             })
+            
 
             if (res.ok) {
                 const resmessage = await res.json();
                 toast.success(resmessage.message);
                 reset()
-                routes.push('/auth/login')
+                router.push('/auth/login')
             }
             else {
                 const errmessage = await res.json();
