@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import NavMenu from '../navbar/NavMenu'
 import BrandLogo from '../navbar/BrandLogo'
 import { Input } from '../ui/input'
+import { Button } from '../ui/button'
 
 export default function SearchNavbar({Searchvalue}) {
     const [query,setQuery]=useState("")
@@ -23,7 +24,9 @@ export default function SearchNavbar({Searchvalue}) {
             />
             <div className="hidden md:flex justify-center items-center space-x-4">
                 <Link href="/add-home" className="text-sm font-semibold">
-                    Add you home
+                 <Button className='bg-brand '>
+                    Add your home
+                    </Button>
                 </Link>
             </div>
             <div className='hidden md:block'>
