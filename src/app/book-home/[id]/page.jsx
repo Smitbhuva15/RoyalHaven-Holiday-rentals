@@ -17,12 +17,24 @@ export default function page() {
   const params = useParams()
   const id = params.id
   const fetcher = (...args) => fetch(...args).then(res => res.json())
+  const { data: session, status } = useSession();
 
   const { data, error, isLoading } = useSWR(`/api/home/${id}`, fetcher)
-   
-  
 
-  const { data: session, status } = useSession();
+  const [userDataId, setUserDataId] = useState();
+
+  const getuserData = async () => {
+    const res = await fetch(`/api/user/${session?.user?.id}`, {
+      method: 'GET'
+    })
+    const messData = await res.json();
+    setUserDataId(messData?.user?.id);
+  }
+
+  useEffect(() => {
+    getuserData();
+  }, [session])
+
 
   const routes = useRouter()
 
@@ -30,10 +42,10 @@ export default function page() {
   const [totalBeforeDiscount, setTotalBeforeDiscount] = useState(data?.home?.price)
   const [discount, setDiscount] = useState(0)
   const [total, setTotal] = useState(0)
-  const[startDate,setStartDate]=useState()
-  const[endDate,setEndDate]=useState()
+  const [startDate, setStartDate] = useState()
+  const [endDate, setEndDate] = useState()
 
-  
+
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -51,8 +63,8 @@ export default function page() {
 
   if (status === 'unauthenticated') return null
 
-  
-  const daydifferencevalue = (value,starting,ending) => {
+
+  const daydifferencevalue = (value, starting, ending) => {
     setStartDate(starting)
     setEndDate(ending)
     setDateDifference(value + 1)
@@ -61,49 +73,53 @@ export default function page() {
     setTotal((data?.home?.price * (value + 1)) - (Math.floor((data?.home?.price * (value + 1)) * 0.075)))
   }
 
-  const  handelorder=async(response,orderId,amount)=>{
-    
+  const handelorder = async (response, orderId, amount) => {
+
+
     const date1 = new Date(startDate);
     const date2 = new Date(endDate);
-    const  starting_date = date1.toISOString();
-    const  ending_date = date2.toISOString();
-    console.log(starting_date,ending_date)
 
-    const obj1={
-      place:data?.home?.image_url,
-      amount:amount/100 ,
-      starting_date:starting_date,
-      ending_date:ending_date,
-      userId:data?.home?.user?.id,
-      orderId:response?.razorpay_order_id
+    date1.setDate(date1.getDate() + 1);
+    date2.setDate(date2.getDate() + 1);
+
+    const starting_date = date1.toISOString();
+    const ending_date = date2.toISOString();
+
+    const obj1 = {
+      place: data?.home?.image_url,
+      amount: amount / 100,
+      starting_date: starting_date,
+      ending_date: ending_date,
+      userId: userDataId,
+      orderId: response?.razorpay_order_id
 
     }
 
     try {
-      const res=await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/book-order`,{
-        method:'POST',
-        headers:{
-          'Content-Type':'application/json',
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/book-order`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
 
         },
-        body:JSON.stringify(obj1)
+        body: JSON.stringify(obj1)
       })
-      
-      if(res.ok){
+
+      if (res.ok) {
         console.log("order success!!")
       }
-      else{
+      else {
         console.log("order is unsuccess!!")
       }
 
-      
+
     } catch (error) {
-      console.log(error,"error found")
+      console.log(error, "error found")
     }
 
 
 
-   
+
 
   }
 
@@ -162,7 +178,7 @@ export default function page() {
           order_id: order.id,
           image: `/images/royal-logo4.png`,
           handler: function (response) {
-            handelorder(response,order.id,order.amount)
+            handelorder(response, order.id, order.amount)
             routes.push('/confirm-order');
             toast.success("Payment Successful! Payment ID: " + response.razorpay_payment_id);
 
@@ -211,11 +227,15 @@ export default function page() {
                 <div className='md:text-5xl font-bold text-brand text-center text-3xl'>
                   Select date
                 </div>
-                <DatePicker daydifferencevalue={daydifferencevalue} />
+                <div className='flex justify-center'>
+                  <div className=''>
+                    <DatePicker daydifferencevalue={daydifferencevalue} />
+                  </div>
+                </div>
               </div>
               {/* right side */}
 
-              <div className='md:w-1/2 mb-10'>
+              <div className='md:w-1/2 mb-10 mt-10'>
                 <div className='flex justify-center'>
                   <Image src={data?.home?.image_url}
                     alt='home photo'

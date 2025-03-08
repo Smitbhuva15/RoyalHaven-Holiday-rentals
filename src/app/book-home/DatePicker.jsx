@@ -3,6 +3,7 @@ import { parse } from 'date-fns';
 import { differenceInDays } from 'date-fns';
 import { addDays } from 'date-fns';
 import React, { useEffect, useState } from 'react'
+import { DateRange } from 'react-date-range';
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css';
@@ -23,7 +24,7 @@ export default function DatePicker({ daydifferencevalue }) {
 
   useEffect(() => {
     if (date[0]?.startDate && date[0]?.endDate) {
-     
+
       const difference = differenceInDays(date[0].endDate, date[0].startDate);
       daydifferencevalue(difference,date[0]?.startDate,date[0]?.endDate)
     }
@@ -33,7 +34,7 @@ export default function DatePicker({ daydifferencevalue }) {
     <div className='mt-10 bg-[#FAFAFA]'>
       <div>
         <div className="">
-          <DateRangePicker
+          <DateRange
             moveRangeOnFirstSelection={false}
             months={1}
             ranges={date}
