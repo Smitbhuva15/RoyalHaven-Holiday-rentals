@@ -1,6 +1,17 @@
 <h1 align="center">🏡 RoyalHaven Holiday Rental </h1>
 <br>
 
+
+## 🔐 Authentication (Sign-in / Sign-up)
+
+- Secure user authentication powered by NextAuth.js.
+
+- Supports account creation, sign-in, and session management.
+
+- Protects user-specific features like bookings and house registration.
+
+<br>
+
 ## 📄 House Listing Details
 - Users can view full details of each house.
 
@@ -82,4 +93,24 @@
 - User can view their booking history or status 
 
    <br>
+
+
+# 🛠️ Tech Stack 
+
+- **Frontend**: Built with React.js and Next.js for a fast, responsive, and SEO-friendly UI.
+
+- **Backend**: Powered by Next.js API routes for full-stack functionality.
+
+- **Database**: PostgreSQL hosted on Neon DB, a modern serverless database platform.
+
+- **ORM**: Prisma for type-safe and efficient database access.
+
+- **UI**: shadcn/ui components styled with Tailwind CSS.
+
+- **Authentication**: NextAuth.js for secure sign-in and sign-up flows.
+
+- **Validation**: Zod for form and input validation.
+
+- **Payments**: Integrated Razorpay for handling secure online transactions.
+
 
