@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">🏡 RoyalHaven Holiday Rental </h1>
+<br>
 
-## Getting Started
+## 📄 House Listing Details
+- Users can view full details of each house.
 
-First, run the development server:
+- Information includes: house images, description, per night rent, and location.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<br>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔍 Search Functionality
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Users can search houses by location.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Helps users find available rentals in specific cities or areas.
 
-## Learn More
+<br>
 
-To learn more about Next.js, take a look at the following resources:
+## 🎛️ Filter System
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Users can filter based on categories**:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   - Farms
+   - Swiming pool
+   - Amazing View
+   - Trending
+   - Internet
+   - TV
+   - Basket ball
+   - Wine-drink
+   - Mountains
+   - Security 
 
-## Deploy on Vercel
+   <br>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ## 🏠 House Registration
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Users can register their own house for rent.
+
+- Other users can then book these houses for their stays.
+
+   <br>
+
+
+ ## 🗓️ Booking System
+
+ - After selecting a house, users choose the number of nights they wish to stay.
+
+ - The total cost is automatically calculated, including:
+
+      - Per night rent × number of nights
+
+      - Applied discounts 
+
+   <br>
+
+
+## 💳 Razorpay Payment Integration
+
+- The platform is integrated with Razorpay as the payment gateway.
+
+- Users can securely make payments for their bookings.
+
+   <br>
+
+
+## 💰 Payment Status
+
+- After completing the transaction, users get real-time feedback:
+
+    - Payment Successful ✅
+
+    - Payment Failed ❌
+
+   <br>
+
+
+## 📜 Booking Confirmation
+
+- On successful payment, the booking is confirmed and saved for the user.
+
+- User can view their booking history or status 
+
+   <br>
+
