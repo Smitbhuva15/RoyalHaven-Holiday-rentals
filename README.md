@@ -113,4 +113,47 @@
 
 - **Payments**: Integrated Razorpay for handling secure online transactions.
 
+<br>
+
+#   Website Preview 
+
+<br>
+
+
+
+<p align="center">
+    <a href='https://royalhaven-holiday-rentals.vercel.app/' target="_blank">
+      <img src='public/images/website-demo/web1.png' width="750" alt="Website Demo">
+    </a>
+</p>
+
+<p align="center">
+    <a href='https://royalhaven-holiday-rentals.vercel.app/' target="_blank">
+      <img src='public/images/website-demo/web2.png' width="750" alt="Website Demo">
+    </a>
+</p>
+
+<p align="center">
+    <a href='https://royalhaven-holiday-rentals.vercel.app/' target="_blank">
+      <img src='public/images/website-demo/web3.png' width="750" alt="Website Demo">
+    </a>
+</p>
+
+<p align="center">
+    <a href='https://royalhaven-holiday-rentals.vercel.app/' target="_blank">
+      <img src='public/images/website-demo/web4.png' width="750" alt="Website Demo">
+    </a>
+</p>
+
+<p align="center">
+    <a href='https://royalhaven-holiday-rentals.vercel.app/' target="_blank">
+      <img src='public/images/website-demo/web5.png' width="750" alt="Website Demo">
+    </a>
+</p>
+
+<p align="center">
+    <a href='https://royalhaven-holiday-rentals.vercel.app/' target="_blank">
+      <img src='public/images/website-demo/web6.png' width="750" alt="Website Demo">
+    </a>
+</p>
 
